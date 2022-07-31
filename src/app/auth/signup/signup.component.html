@@ -1,9 +1,30 @@
 
-<section>
-    <mat-form-field>
-        <input type="email" matInput placeholder="Email"/>
-    </mat-form-field>
-    <mat-form-field>
-        <input type="password" matInput placeholder="Password"/>
-    </mat-form-field>
+<section class="signup-form">
+    <form fxLayout="column" fxLayoutAlign="center center" #f="ngForm" (ngSubmit)="onSubmit(f)">
+        <mat-form-field>
+            <input type="email"
+             matInput placeholder="Email" 
+             ngModel 
+             name="email"
+             email
+             required
+             #emailInput="ngModel"
+             />
+             <mat-error *ngIf="emailInput.hasError('required')">This field must be filled</mat-error>
+             <mat-error *ngIf="!emailInput.hasError('required')">Email Invalid</mat-error>
+        </mat-form-field>
+        <mat-form-field hintLabel="Should be at least 6 characters">
+            <input type="password" 
+            matInput placeholder="Password" 
+            ngModel 
+            name="password"
+            password
+            required
+            minlength="6"
+            #pwLength="ngModel"
+            />
+            <mat-hint align="end"> {{pwLength.value?.length}}/6</mat-hint>
+        </mat-form-field>
+        <button type="submit" mat-raised-button color="primary" [disabled]="isDisabled">Submit</button>
+    </form>
 </section>
